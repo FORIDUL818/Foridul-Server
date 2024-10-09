@@ -29,7 +29,7 @@ import { OtpModel } from "../MOdel/userModel/otpModel.js";
                 return res.status(401).json({status:"Password is not match"})
             }
             else{
-                let payload = { exp: Math.floor(Date.now() / 1000) + (60 * 60*24), data: userdata.email };
+                let payload = { exp: Math.floor(Date.now() / 1000) + ( 60 * 60* 1 ), data: userdata.email };
                 let token = jwt.sign(payload, process.env.JWT_SECRET);
                 res.status(200).json({ status: "success", data: userdata, Token: token});
             }

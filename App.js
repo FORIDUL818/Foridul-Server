@@ -1,4 +1,5 @@
 import express from "express";
+import expressRadLimit from "express-rate-limit";
 import bodyParser from "body-parser";
 import cors from "cors";
  import dotenv from "dotenv";
@@ -10,7 +11,11 @@ const app = express();
 
 app.use(cors())
 app.use(bodyParser.json());
-
+app.use(rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again after 15 minutes'
+  }))
 const mongoConnection=async()=>{
  return await mongoose.connect(process.env.MONGO_URL)
 }
